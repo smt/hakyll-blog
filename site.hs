@@ -13,6 +13,9 @@ pandocWriteOptions = defaultHakyllWriterOptions
     }
 
 --------------------------------------------------------------------------------
+host :: String
+host = "https://www.smt.io"
+
 main :: IO ()
 main = hakyll $ do
 
@@ -111,6 +114,22 @@ main = hakyll $ do
                 loadAllSnapshots "posts/*" "content"
             renderRss feedConfiguration feedContext posts
 
+    -- Render sitemap
+    create ["sitemap.xml"] $ do
+        route   idRoute
+        compile $ do
+            posts <- recentFirst =<< loadAll "posts/*"
+            pages <- loadAll "pages/*"
+            let allPosts = (return (pages ++ posts))
+            let ctx = mconcat
+                            [ listField "entries" (postCtx tags) allPosts
+                            , constField "host" host
+                            , defaultContext
+                            ]
+            makeItem ""
+                >>= loadAndApplyTemplate "templates/sitemap.xml" ctx
+                >>= wordpressifyUrls
+
 
 --------------------------------------------------------------------------------
 feedContext :: Context String
@@ -155,6 +174,7 @@ postCtx :: Tags -> Context String
 postCtx tags = mconcat
     [ dateField "date" "%B %e, %Y"
     , tagsField "tags" tags
+    , constField "host" host
     , defaultContext
     ]
 
