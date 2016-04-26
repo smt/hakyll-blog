@@ -4,7 +4,9 @@ title: Search
 <form method="get" id="sform" action="/search.html">
   <input type="text" id="q" value="" name="q" size="20" class="searchbox">
 </form>
-<!-- <div id="cse">Loading</div>
+
+<div id='cse'>Loading</div>
+
 <script type="text/javascript">
   (function() {
     document.getElementById('q').value = decodeURIComponent(window.location.search.substring(3)).replace(/\+/g, ' ');
@@ -28,12 +30,12 @@ title: Search
     }, 500);
   })();
 </script>
-<script src="//www.google.com/jsapi" type="text/javascript"></script>
+<script src='//www.google.com/jsapi' type='text/javascript'></script>
 <script type="text/javascript"> 
   google.load('search', '1', {language : 'en', style : google.loader.themes.MINIMALIST});
   google.setOnLoadCallback(function() {
     var customSearchOptions = {};  var customSearchControl = new google.search.CustomSearchControl(
-      '014002343956161213633:sxmdlmxxazq', customSearchOptions);
+      '005218708210767598481:kkhjp_8wyli', customSearchOptions);
     customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
     var options = new google.search.DrawOptions();
     options.enableSearchResultsOnly(); 
@@ -57,4 +59,4 @@ title: Search
       customSearchControl.execute(urlParams[queryParamName]);
     }
   }, true);
-</script> -->
+</script>
