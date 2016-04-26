@@ -10,7 +10,7 @@ body{
 }
 
 body, #ancillary{
-    background:#D8D8D8;
+    background:#E5F6F7;
 }
 
 a, .story .details a, .story .details a:hover{
@@ -58,10 +58,10 @@ table td{ color:#222222; background:#EAEAEA; }
 }
 
 ul.dates, ul.counts, ul.blogroll ul, ul.pages, .widget ul{
-    border-top:1px solid #C2C2C2;
+    border-top:1px solid #C0E0E2;
 }
 ul.dates li, ul.counts li, ul.blogroll ul li, ul.pages li, .widget ul li{
-    border-bottom:1px solid #C2C2C2;
+    border-bottom:1px solid #C0E0E2;
 }
 ul.dates .date, ul.counts .count{
     color:#7A7A7A;
