@@ -18,29 +18,15 @@ main = hakyll $ do
 
     match "templates/*" $ compile templateCompiler
 
-    match "favicon.ico" $ do
-        route   idRoute
-        compile copyFileCompiler
+    forM_ ["favicon.ico", "*icon*.png", "browserconfig.xml", "manifest.json", "robots.txt"] $ \p ->
+        match p $ do
+            route   idRoute
+            compile copyFileCompiler
 
-    match "keybase.txt" $ do
-        route   idRoute
-        compile copyFileCompiler
-
-    match "images/**" $ do
-        route   idRoute
-        compile copyFileCompiler
-
-    match "files/**" $ do
-        route   idRoute
-        compile copyFileCompiler
-
-    match "fonts/**" $ do
-        route   idRoute
-        compile copyFileCompiler
-
-    match "js/**" $ do
-        route   idRoute
-        compile copyFileCompiler
+    forM_ ["images/**", "js/**", "files/**", "fonts/**"] $ \p ->
+        match p $ do
+            route   idRoute
+            compile copyFileCompiler
 
     match "css/**" $ do
         route   idRoute
@@ -53,7 +39,7 @@ main = hakyll $ do
     forM_ [("posts/*", "templates/post.html", "templates/postfooter.html"),
            ("pages/*", "templates/page.html", "templates/pagefooter.html")] $ \(p, t, f) ->
         match p $ do
-            route $ wordpressRoute
+            route   $ wordpressRoute
             compile $ do
                 let allCtx =
                         field "recent" (\_ -> recentPostList) <>
@@ -84,7 +70,7 @@ main = hakyll $ do
     -- Labels
     tagsRules tags $ \tag pattern -> do
         let title = "Posts with label " ++ " &#8216;" ++ tag ++ "&#8217;"
-        route labelRoute
+        route   labelRoute
         compile $ do
             let allCtx =
                     field "recent" (\_ -> recentPostList) <>
@@ -102,7 +88,7 @@ main = hakyll $ do
     pag <- buildPaginateWith grouper "posts/*" makeId
 
     paginateRules pag $ \pageNum pattern -> do
-        route idRoute
+        route   idRoute
         compile $ do
             posts <- recentFirst =<< loadAll pattern
             let paginateCtx = paginateContext pag pageNum
@@ -119,7 +105,7 @@ main = hakyll $ do
 
     -- Render RSS feed
     create ["rss.xml"] $ do
-        route idRoute
+        route   idRoute
         compile $ do
             posts <- fmap (take 10) . recentFirst =<<
                 loadAllSnapshots "posts/*" "content"
